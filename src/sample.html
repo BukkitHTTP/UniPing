@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>UniPing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        label {
+            margin-left: 20px;
+        }
+
+        input {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #result {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #api-doc {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+    <script>
+        function ping() {
+            const url = document.getElementById('url').value;
+            fetch('/ping?dest=' + encodeURIComponent(url))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('result').innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = error;
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>UniPing</h1>
+
+<label for="url">测试</label>
+<input id="url" placeholder="输入地址" type="text">
+<button onclick="ping()">发送Ping</button>
+<pre id="result">无结果</pre>
+
+<div id="api-doc">
+    <h2>UniPing使用说明</h2>
+    <p>UniPing是一个开源，公益的mc/http(s)/tcp站点存活验证api。</p>
+    <p><strong>API地址:</strong> GET /ping</p>
+    <p><strong>参数:</strong> dest</p>
+    <p><strong>参数举例:</strong></p>
+    <p>http://baidu.com</p>
+    <p>https://1.1.1.1:442</p>
+    <p>tcp://baidu.com:442</p>
+    <p>mc://hypixel.net</p>
+    <p>mc://mc.hypixel.net:25565</p>
+    <p><strong>返回:</strong> json</p>
+    <p><strong>再看不懂就按下F12看！</strong></p>
+    <a href="https://github.com/BukkitHTTP/UniPing">Github</a>
+</div>
+</body>
+</html>
